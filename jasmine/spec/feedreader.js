@@ -90,24 +90,32 @@ $(function() {
         });
 
           it('loadFeed function is called and completes its work', function(){
-            var entry = $('.entry');
+            var entry = $('.feed .entry-link .entry');
               expect(entry.length).toBeGreaterThan(0);
           });
     });
 
     describe('New Feed Selection', function(){
+
+      var feed1, feed2;
+
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                feed1 = $('.feed').html();
+            });
+            loadFeed(1, function(){
+              feed2 = $('.feed').html();
+              done();
+            });
+
+        });
+
+            it('content changes on feed', function(done) {
+              expect(feed1).not.toEqual(feed2);
+              done();
+        });
+
       /* TODO: Write a new test suite named "New Feed Selection" */
-      it('content changes on feed', function(done) {
-        var feed1, feed2;
-          loadFeed(0, function() {
-              feed1 = $('.feed').html();
-              loadFeed(1, function(){
-                feed2 = $('.feed').html();
-                expect(feed1).not.toEqual(feed2);
-                done();
-              });
-          });
-      });
     });
 
 }());
